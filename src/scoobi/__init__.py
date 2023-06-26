@@ -177,8 +177,17 @@ def thumb_gen(fits_folder, out_folder=None, thumb_folder="Thumbnails", force=Fal
         allfile=search_file(f"{fits_folder}/",'.fits', recursive=True)
         
         for fitsfile in allfile:
+            """
             if not out_folder:out_folder=Path(fitsfile).parent
+            """
+            out_folder=Path(fitsfile).parent
+            absolute_path = "/data/solar_data/processed/Thumbnails"
+            desired_parts = out_folder.parts[4:10]
+            destination_path=f'{absolute_path}/{Path(*desired_parts)}'
+            jpgfolder=f"{destination_path}/{thumb_folder}"
+            """
             jpgfolder=f"{out_folder}/{thumb_folder}"
+            """
             jpgfile=f"{jpgfolder}/{Path(fitsfile).stem}.jpg"
             
             if not Path(jpgfolder).exists(): Path(jpgfolder).mkdir(parents=True,exist_ok=True)
